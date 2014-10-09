@@ -16,11 +16,16 @@ of the License, or (at your option) any later version.
 
 using namespace std;
 
+// Define api prototypes
+map<string, cJSON *> package;
+cJSON * getProperty(string cat, string property);
+cJSON * setProperty(string cat, string property);
+
 int main() {
 	
 	// Package.json demo
 	fstream f;
-	f.open("package.json", ios::in); // Open in read mode
+	f.open("package.json"); // Open in rw mode
 
 
 	if(!f.is_open()) exit(EXIT_FAILURE);
@@ -46,6 +51,10 @@ int main() {
 
 	    subitem = subitem->next;
 	}*/
+
+	//string maps[] = getProperty("content", "maps");
+	//setProperty("title", "alterNateTitle");
+	//f.write(cJSON_Print(item)); //Overwrite using modified version?
 
 	return 0;
 }
