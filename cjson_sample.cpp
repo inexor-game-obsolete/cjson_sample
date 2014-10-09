@@ -12,6 +12,7 @@ of the License, or (at your option) any later version.
 #include <string>
 #include <fstream>
 #include <map>
+#include <vector>
 #include "cJSON.h" //include cJSON.h using some g++ magic
 
 using namespace std;
@@ -19,7 +20,7 @@ using namespace std;
 // Define api prototypes
 map<string, cJSON *> package;
 cJSON * getProperty(string cat, string property);
-cJSON * setProperty(string cat, string property);
+cJSON * setProperty(string cat, vector<string> properties);
 
 int main() {
 	
@@ -40,21 +41,21 @@ int main() {
 	}
 
 	item = cJSON_Parse(json.c_str());
+	cJSON *subitem = item->child; // This is actually anything beneath the root tree
 
-	//cJSON *subitem = item->child; // This is actually anything beneath the root tree
-	/*while (subitem)
+	while (subitem)
 	{
 		// handle subitem
-	    // if (subitem->child) parse_object(subitem->child);
 		string name = subitem->string;
-		package.insert(name, subitem);
+		package[name] = subitem; //TODO: Needs some sanity-check
 
 	    subitem = subitem->next;
-	}*/
+	}
 
 	//string maps[] = getProperty("content", "maps");
 	//setProperty("title", "alterNateTitle");
 	//f.write(cJSON_Print(item)); //Overwrite using modified version?
+	f.close();
 
 	return 0;
 }
